@@ -2,7 +2,7 @@ const Category = require("../models/category");
 const joi = require("joi");
 const getAll = async (req, res) => {
   try {
-    const categorys = await Category.find();
+    const categorys = await Category.find().sort({'updatedAt': -1});
     res.status(200).json(categorys);
   } catch (err) {
     console.log(err);
@@ -46,7 +46,7 @@ const create = async (req, res) => {
     const newCategory = new Category(value);
     await newCategory.save();
 
-    res.status(201).json(newCategory);
+    res.status(201).json({category:newCategory,message:newCategory.name+" create successefely"});
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -58,7 +58,7 @@ const remove = async (req, res) => {
     const category = await Category.findByIdAndDelete(id);
     if (!category)
       return res.status(404).json({ message: "Category not found" });
-    res.status(204).json({message:"category"+category.name+" removed successefely"})
+    res.status(200).json({message:"category  '"+category.name+"' removed successefely"})
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });

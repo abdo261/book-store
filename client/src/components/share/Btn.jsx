@@ -2,7 +2,7 @@ import React from "react";
 
 const Btn = ({
   text,
-  icon,
+
   oncklick,
   className,
   type = "button",
@@ -15,7 +15,6 @@ const Btn = ({
       className={className}
       type={type}
     >
-      {icon && icon}
       {text && text}{" "}
     </button>
   );

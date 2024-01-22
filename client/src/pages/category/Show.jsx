@@ -1,22 +1,23 @@
 import React, { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { BsEye, BsPencil, BsTrash3 } from "react-icons/bs";
 import { get } from "../../redux/api/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import TableCategory from "./shildren/TableCategory";
+import SpinerBs from "../../components/share/SpinerBs";
+import ErrorAlert from "../../components/share/ErrorAlert";
 
 const Show = () => {
-  const {categorys} = useSelector(state=>state.category)
+  const {categorys,loading,error} = useSelector(state=>state.category)
   const dispatch = useDispatch();
   const getAll = useCallback(() => {
     dispatch(get("/api/categorys"));
   }, []);
   useEffect(() => {
     getAll();
-  }, []);
+  }, [getAll]);
  
   return (
-    <div className="category-list w-100 h-100 ">
+    <div className="category-list w-100 h-100 p-3">
       <div className="d-flex justify-content-between align-items-center">
         <div>
           <h1>Category List </h1>
@@ -26,7 +27,8 @@ const Show = () => {
         </div>
       </div>
       <div className="table-container ">
-        {categorys && <TableCategory categorys = {categorys}/>}
+        {loading ? <SpinerBs /> :categorys && <TableCategory categorys = {categorys}/> }
+        {error && <ErrorAlert error={error} />}
       </div>
     </div>
   );

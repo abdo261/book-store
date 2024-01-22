@@ -17,7 +17,7 @@ const Layout = () => {
         </div>
         <ToastContainer
           position="top-center"
-          autoClose={500}
+          autoClose={1500}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
@@ -26,6 +26,7 @@ const Layout = () => {
           draggable
           pauseOnHover
           theme="light"
+          draggablePercent={60}
         />
       </main>
     </>

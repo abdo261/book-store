@@ -9,7 +9,7 @@ const categorySlice = createSlice({
     deleteMessage: null,
   },
   reducers: {
-    setCategory(state, action) {
+    setCategorys(state, action) {
       state.categorys = action.payload;
     },
     setLoading(state, action) {
@@ -21,8 +21,18 @@ const categorySlice = createSlice({
     seytdeleteMessage(state, action) {
       state.deleteMessage = action.payload;
     },
+    addCategory(state, action) {
+      state.categorys = [...state.categorys, action.payload].sort((a, b) => {
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+      });
+    },
+    removeCategory(state,action){
+      state.categorys=state.categorys.filter(c=>c._id!==action.payload).sort((a, b) => {
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+      });
+    }
   },
 });
 const categoryActions = categorySlice.actions;
 const categoryReducer = categorySlice.reducer;
-export {categoryActions,categoryReducer}
+export { categoryActions, categoryReducer };
