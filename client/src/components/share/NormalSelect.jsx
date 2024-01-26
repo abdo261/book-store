@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Select = ({
+const NormalSelect = ({
   label,
   defaultValue,
   onchange,
@@ -14,7 +14,7 @@ const Select = ({
   const [value, setValue] = useState(defaultValue);
   const handelChange = (e) => {
     setValue((prev) => e.target.value);
-    onchange(e.target.value);
+    field ? onchange(field, e.target.value) : onchange(e.target.value);
   };
   useEffect(() => {
     setValue((prev) => defaultValue);
@@ -27,13 +27,19 @@ const Select = ({
         id={field}
         onChange={handelChange}
         className={className}
+        value={value}
       >
         <option value="">{titleOptions}</option>
-        {options.length > 0 &&
-          options.map((o) => <option value={o.value} key={o.value} >{o.e}</option>)}
+        {options &&
+          options.length > 0 &&
+          options.map((o,i) => (
+            <option key={i} value={o}>
+              {o}
+            </option>
+          ))}
       </select>
     </div>
   );
 };
 
-export default Select;
+export default NormalSelect;

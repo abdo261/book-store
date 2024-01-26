@@ -45,6 +45,7 @@ main {
   padding: 0 1rem;
   transition: 0.5s;
   border-bottom:2px solid var(--secondary-b);
+  z-index: 20;
 }
 
 .header-toggle {
@@ -64,6 +65,7 @@ main {
   padding-top: 1rem;
   transition: 0.5s;
   border-right: 2px solid var(--secondary-b);
+  z-index: 300;
 }
 
 .nav {
@@ -72,9 +74,11 @@ main {
   justify-content: space-between;
   overflow: hidden;
   height: 100%;
+ 
 }
 .imag-logo{
   width: 40px;
+  border-radius: 50%;
   /* filter: invert(100%); */
 }
 .nav-logo{

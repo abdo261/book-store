@@ -1,8 +1,8 @@
-const Category = require("../models/category");
+const Category = require("../models/Category");
 const joi = require("joi");
 const getAll = async (req, res) => {
   try {
-    const categorys = await Category.find().sort({'updatedAt': -1});
+    const categorys = await Category.find().sort({ updatedAt: -1 });
     res.status(200).json(categorys);
   } catch (err) {
     console.log(err);
@@ -13,19 +13,22 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   try {
     const { id } = req.params;
-    const category = await Category.findById(id);
+    const category = await Category.findById(id).populate("books");
     if (!category)
       return res.status(404).json({ message: "category note found" });
     res.status(200).json(category);
   } catch (err) {
     console.log(err);
-    res.tatus(500).json({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
 const create = async (req, res) => {
   const schema = joi.object({
-    name: joi.string().required(),
+    name: joi
+      .string()
+      .pattern(/^[a-zA-Z _-]+$/)
+      .required(),
     color: joi
       .string()
       .pattern(
@@ -46,7 +49,10 @@ const create = async (req, res) => {
     const newCategory = new Category(value);
     await newCategory.save();
 
-    res.status(201).json({category:newCategory,message:newCategory.name+" create successefely"});
+    res.status(201).json({
+      category: newCategory,
+      message: newCategory.name + " create successefely",
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -58,7 +64,9 @@ const remove = async (req, res) => {
     const category = await Category.findByIdAndDelete(id);
     if (!category)
       return res.status(404).json({ message: "Category not found" });
-    res.status(200).json({message:"category  '"+category.name+"' removed successefely"})
+    res.status(200).json({
+      message: "category  '" + category.name + "' removed successefely",
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -67,12 +75,13 @@ const remove = async (req, res) => {
 
 const update = async (req, res) => {
   const schema = joi.object({
-    name: joi.string(),
+    name: joi.string().pattern(/^[a-zA-Z _-]+$/),
     color: joi
       .string()
       .pattern(
         /^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$|^rgba\(\d{1,3},\s?\d{1,3},\s?\d{1,3},\s?(0(\.\d{1,2})?|1(\.0{1,2})?)\)$/
       ),
+    books: joi.array(),
   });
 
   try {
@@ -90,16 +99,14 @@ const update = async (req, res) => {
     if (!updatedCategory)
       return res.status(404).json({ message: "Category not found" });
 
-    res
-      .status(200)
-      .json({
-        Category: updatedCategory,
-        message: "category "+updatedCategory.name+" update avec success ^_^",
-      });
+    res.status(200).json({
+      category: updatedCategory,
+      message: "category " + updatedCategory.name + " update avec success ^_^",
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { getAll, getById, create,update,remove };
+module.exports = { getAll, getById, create, update, remove };

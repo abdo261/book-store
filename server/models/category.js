@@ -11,6 +11,13 @@ const CategorySchema = new Schema(
       required: true,
       unique:true
     },
+    books: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'book',  // Reference to the 'book' model
+        default: [],
+      },
+    ],
      },
   { timestamps: true, versionKey: false }
 );

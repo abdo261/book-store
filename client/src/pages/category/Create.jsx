@@ -18,7 +18,7 @@ const Create = () => {
     dispatch(create("/api/categorys", formData, () => navigate("/category")));
   };
   return (
-    <div className="category-create container w-100 h-100 ">
+    <div className="category-create  w-100 h-100 p-3 ">
       <div className="d-flex justify-content-start align-items-center">
         <div>
           <h1>Category Create </h1>

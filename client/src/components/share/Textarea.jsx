@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Input = ({
+const Textarea = ({
   field,
   classParent,
   className,
@@ -9,16 +9,20 @@ const Input = ({
   defaultValue,
   placeholder,
   onchange,
-  type = "text",
+  rows, // added prop for rows
+  cols, // added prop for cols
 }) => {
-  const [Value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue);
+
   useEffect(() => {
     setValue(defaultValue);
   }, [defaultValue]);
-  const handelChange = (e) => {
-    setValue((prev) => e.target.value);
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
     onchange(field, e.target.value);
   };
+
   return (
     <div className={classParent}>
       {label && (
@@ -26,17 +30,18 @@ const Input = ({
           {label}
         </label>
       )}
-      <input
+      <textarea
         className={className}
-        type={type}
         name={field}
         id={field}
-        value={Value}
-        onChange={handelChange}
+        value={value}
+        onChange={handleChange}
         placeholder={placeholder}
+        rows={rows} // setting rows attribute
+        cols={cols} // setting cols attribute
       />
     </div>
   );
 };
 
-export default Input;
+export default Textarea;

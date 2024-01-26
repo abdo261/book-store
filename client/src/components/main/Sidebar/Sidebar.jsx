@@ -42,9 +42,9 @@ const Sidebar = ({ show, toggleShow }) => {
         <nav className="nav">
           <div>
             <Link to="/" className="nav-logo d-flex align-items-center ">
-              {show && (
-                <img src="/logo-color.png" className="imag-logo" alt="logo" />
-              )}
+         
+                <img src="/llogo-removebg-preview.png" className="imag-logo" alt="logo" />
+              
             </Link>
 
             <div className="nav-list">

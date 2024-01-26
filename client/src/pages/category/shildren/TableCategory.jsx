@@ -1,18 +1,39 @@
 import React from "react";
 import { BsEye, BsPencil, BsTrash3 } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { remove } from "../../../redux/api/apiCalls";
 import Btn from "../../../components/share/Btn";
-
+import { categoryActions } from "../../../redux/slices/categorySlice";
+import swal from "sweetalert"
+import { updateBook, updateMenyBook } from "../../../redux/api/bookApiCall";
 const TableCategory = ({ categorys }) => {
+  const {deleteMessage} = useSelector(state=>state.category)
   const dispatch = useDispatch();
-  const handelDelet = (id) => dispatch(remove("/api/categorys",id)) ;
-
+  const handelDelet = (id) => {
+    // dispatch(remove("/api/categorys",id))
+    dispatch(categoryActions.seytdeleteMessage({message:" Are you sure you want to remove this category ? ",id}))
+   };
+   if(deleteMessage){
+    swal({
+      title: deleteMessage.message,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((isOk) => {
+      if (isOk) {
+        dispatch(remove("/api/categorys",deleteMessage.id))
+        dispatch(updateMenyBook(`/api/books/updateMany/${deleteMessage.id}`,{category:null}))
+        dispatch(categoryActions.seytdeleteMessage(null));
+      }
+      dispatch(categoryActions.seytdeleteMessage(null));
+    });
+   }
   return (
-    <table className="table">
+    <table className="table table-hover">
       <thead>
         <tr className="table-primary">
+          <th>#</th>
           <th>Name</th>
           <th>Color</th>
           <th></th>
@@ -20,8 +41,9 @@ const TableCategory = ({ categorys }) => {
       </thead>
       <tbody>
         {categorys.length > 0 ? (
-          categorys.map((c) => (
+          categorys.map((c,i) => (
             <tr key={c._id}>
+              <td>{i}</td>
               <td>{c.name}</td>
               <td>
                 <div
