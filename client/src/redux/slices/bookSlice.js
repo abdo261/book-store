@@ -12,7 +12,7 @@ const bookSlice = createSlice({
   },
   reducers: {
     setBooks(state, action) {
-      state.books = action.payload.sort((a, b) => {
+      state.books = action.payload?.sort((a, b) => {
         return new Date(b.updatedAt) - new Date(a.updatedAt);
       });
     },

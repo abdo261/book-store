@@ -17,19 +17,15 @@ const BookSchema = new Schema(
       type: String,
       required: true,
     },
-    category: {
-      type: Schema.Types.ObjectId,
-      ref: "category",
-      default: null,
-    },
-   
+    category: { default: null, type: Schema.Types.ObjectId, ref: "category" },
+
     dateReleased: {
       type: Date,
       required: true,
     },
     sizeInMB: {
       type: Number,
-      default:0,
+      default: 0,
     },
     numberOfPages: {
       type: Number,
@@ -44,8 +40,6 @@ const BookSchema = new Schema(
       required: true,
     },
     image: { type: String },
-  
-   
   },
   { timestamps: true, versionKey: false }
 );

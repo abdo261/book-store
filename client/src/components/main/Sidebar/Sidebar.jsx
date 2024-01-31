@@ -3,14 +3,15 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { BsAward, BsList, BsX, BsBoxArrowInLeft } from "react-icons/bs"; // Import Bootstrap icons
 import { FiBookOpen } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
+import { LogoutUser } from "../../../redux/api/authApiCalls";
 
 const Sidebar = ({ show, toggleShow }) => {
   // const { user } = useSelector((state) => state.auth);
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const handelLogout = () => {
-  //   dispatch(LogoutUser(navigate("/login")));
-  // };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handelLogout = () => {
+    dispatch(LogoutUser(()=>navigate("/login")));
+  };
 
   const closeIcon = show ? <BsX size={30} /> : <BsList size={30} />;
   const logoutIcon = <BsBoxArrowInLeft />;
@@ -68,7 +69,7 @@ const Sidebar = ({ show, toggleShow }) => {
           <span
             to="/logout"
             className="nav-link-iteme  d-flex align-items-center fw-bold"
-            // onClick={handelLogout}
+            onClick={handelLogout}
           >
             {logoutIcon}
             <span className="nav-link-name">Logout</span>

@@ -4,6 +4,7 @@ import SelectObj from "../../components/share/SelectObj";
 import Textarea from "../../components/share/Textarea";
 import { FcAddImage } from "react-icons/fc";
 import Btn from "../../components/share/Btn";
+import SpinerBs from "../../components/share/SpinerBs";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { get, getBiId, update } from "../../redux/api/apiCalls";
@@ -17,7 +18,7 @@ const Edite = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { categorys, category } = useSelector((state) => state.category);
-  const { book } = useSelector((state) => state.book);
+  const { book, loading, error } = useSelector((state) => state.book);
   const [formData, setFormData] = useState({});
   const { id } = useParams();
   const getCategoryOption = useCallback(() => {
@@ -86,18 +87,14 @@ const Edite = () => {
       deleteImage("/api/images/name", book.image);
       upload("/api/images", file);
     }
-    dispatch(updateBook(`/api/books/${id}`, formData));
+    dispatch(updateBook(`/api/books/${id}`, formData, () => navigate(-1)));
     console.log(BookId);
 
     if (category) {
       dispatch(
-        update(
-          `/api/categorys/${book.category}`,
-          {
-            books: [...category.books, BookId],
-          },
-          () => navigate(-1)
-        )
+        update(`/api/categorys/${book.category}`, {
+          books: [...category.books, BookId],
+        })
       );
     }
   };
@@ -119,11 +116,12 @@ const Edite = () => {
   return (
     <div className="category-create w-100 h-100 p-3">
       <div className="d-flex justify-content-start align-items-center">
-        <h1>New Book </h1>
+        <h1>Edite Book </h1>
       </div>
       <div className="form-container container">
         <form className="bg-light row text-dark p-3" onSubmit={handelSubmit}>
-          {book && (
+          {loading && <SpinerBs />}
+          {book && categorys && (
             <>
               <div className="image-create col-md-3 col-sm-12 ">
                 <div className="h-100 d-flex justify-content-center align-items-center flex-column">
@@ -196,7 +194,7 @@ const Edite = () => {
                     field="category"
                     defaultValue={book.category}
                     classParent="my-2"
-                    titleOptions=" Category ?"
+                    titleOptions="No Category"
                     className="form-select"
                     classLabel="fw-semibold"
                     onchange={handelChange}

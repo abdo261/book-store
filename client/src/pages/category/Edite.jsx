@@ -59,7 +59,7 @@ const Edite = () => {
     <div className="category-create container w-100 h-100 ">
       <div className="d-flex justify-content-start align-items-center">
         <div>
-          <h1>Category Create </h1>
+          <h1>Category Edite </h1>
         </div>
       </div>
       <form

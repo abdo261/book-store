@@ -13,9 +13,11 @@ require("./config/connection");
 const categoryRouter = require("./routers/categoryRouter");
 const bookRouter = require("./routers/bookRouter");
 const imageRouter= require("./routers/imageRouter");
+const userRouter= require("./routers/authRouter");
 
 app.use("/api/categorys", categoryRouter);
 app.use("/api/books", bookRouter);
 app.use("/api/images", imageRouter);
+app.use("/api/user", userRouter);
 
 app.listen(PORT, () => console.log(`server raning in port ${PORT} -_^`));

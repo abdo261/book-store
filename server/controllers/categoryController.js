@@ -5,7 +5,7 @@ const getAll = async (req, res) => {
     const categorys = await Category.find().sort({ updatedAt: -1 });
     res.status(200).json(categorys);
   } catch (err) {
-    console.log(err);
+    
     res.tatus(500).json({ message: err.message });
   }
 };
@@ -13,12 +13,12 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   try {
     const { id } = req.params;
-    const category = await Category.findById(id).populate("books");
+    const category = await Category.findById(id)
     if (!category)
       return res.status(404).json({ message: "category note found" });
     res.status(200).json(category);
   } catch (err) {
-    console.log(err);
+    
     res.status(500).json({ message: err.message });
   }
 };
@@ -54,7 +54,7 @@ const create = async (req, res) => {
       message: newCategory.name + " create successefely",
     });
   } catch (err) {
-    console.log(err);
+    
     res.status(500).json({ message: err.message });
   }
 };
@@ -68,7 +68,7 @@ const remove = async (req, res) => {
       message: "category  '" + category.name + "' removed successefely",
     });
   } catch (err) {
-    console.log(err);
+    
     res.status(500).json({ message: err.message });
   }
 };
@@ -80,8 +80,7 @@ const update = async (req, res) => {
       .string()
       .pattern(
         /^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$|^rgba\(\d{1,3},\s?\d{1,3},\s?\d{1,3},\s?(0(\.\d{1,2})?|1(\.0{1,2})?)\)$/
-      ),
-    books: joi.array(),
+      )
   });
 
   try {
@@ -104,7 +103,7 @@ const update = async (req, res) => {
       message: "category " + updatedCategory.name + " update avec success ^_^",
     });
   } catch (err) {
-    console.log(err);
+    
     res.status(500).json({ message: err.message });
   }
 };

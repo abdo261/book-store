@@ -11,7 +11,7 @@ const TableBooks = ({ category, id,books }) => {
   const prices = Array.from({ length: 11 }, (_, index) => index * 10).map(
     (value) => ({ value, e: value + " >" })
   );
-  const filterBooks = books
+  const filterBooks = books &&  books
     .filter((e) => e.title.toUpperCase().includes(title.toUpperCase()))
     .filter((e) => e.price <= price);
   const handelInputChange = (field, value) => {
@@ -47,7 +47,7 @@ const TableBooks = ({ category, id,books }) => {
       </div>
       <div className="cards-container my-3">
         <div className="row">
-          {filterBooks.length === 0 ? (
+          {filterBooks && filterBooks.length === 0 ? (
             <div className="col-12 text-center ">
               <div className="fw-bolder">There are no books in {category.name} !</div>
             </div>

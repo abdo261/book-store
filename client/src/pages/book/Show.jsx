@@ -11,7 +11,7 @@ const Show = () => {
   const { books, error, loading } = useSelector((state) => state.book);
   const get=useCallback(()=>{
    dispatch(getBooks('/api/books')) 
-  },[books?.length])
+  },[])
   useEffect(()=>{
     get()
   },[get])

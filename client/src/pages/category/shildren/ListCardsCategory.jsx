@@ -36,9 +36,9 @@ const ListCardsCategory = ({ categorys }) => {
       dangerMode: true,
     }).then((isOk) => {
       if (isOk) {
-        dispatch(remove("/api/categorys", deleteMessage.id));
-        dispatch(updateMenyBook(`/api/books/updateMany/${deleteMessage.id}`,{category:null}))
         dispatch(categoryActions.seytdeleteMessage(null));
+        dispatch(remove("/api/categorys", deleteMessage.id));
+        dispatch(updateMenyBook(`/api/books/updateMany/${deleteMessage.id}`,{category:""}))
       }
       dispatch(categoryActions.seytdeleteMessage(null));
     });

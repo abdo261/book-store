@@ -4,8 +4,9 @@ import { categoryActions } from "../slices/categorySlice";
 
 export const get = (resource) => {
   return async (dispatch) => {
+    dispatch(categoryActions.setError(null));
     dispatch(categoryActions.setLoading(true));
-    dispatch(categoryActions.setCategorys([]));
+
     await request
       .get(resource)
       .then((res) => {
@@ -25,6 +26,7 @@ export const get = (resource) => {
 };
 export const getBiId = (resource) => {
   return async (dispatch) => {
+    dispatch(categoryActions.setError(null));
     dispatch(categoryActions.setLoading(true));
     dispatch(categoryActions.setCategory(null));
     await request
@@ -46,6 +48,7 @@ export const getBiId = (resource) => {
 
 export const create = (resource, data, cb) => {
   return async (dispatch) => {
+    dispatch(categoryActions.setError(null));
    await request
       .post(resource, data)
       .then((res) => {
@@ -67,6 +70,7 @@ export const create = (resource, data, cb) => {
 
 export const remove = (resource, id) => {
   return async (dispatch) => {
+    dispatch(categoryActions.setError(null));
    await request
       .delete(resource + "/" + id)
       .then((res) => {
@@ -86,6 +90,7 @@ export const remove = (resource, id) => {
 };
 export const update = (resource, data,cb,message=false) => {
   return async (dispatch) => {
+    dispatch(categoryActions.setError(null));
    await request
       .put(resource, data)
       .then((res) => {

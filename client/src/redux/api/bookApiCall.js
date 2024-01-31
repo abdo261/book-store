@@ -5,11 +5,12 @@ import { bookActions } from "../slices/bookSlice";
 export const getBooks = (resource) => {
   return async (dispatch) => {
     dispatch(bookActions.setLoading(true));
-
+    dispatch(bookActions.setError(null));
+    dispatch(bookActions.setBooks(null));
     await request
       .get(resource)
       .then((res) => {
-        
+        console.log(res)
         dispatch(bookActions.setError(null));
         dispatch(bookActions.setBooks(res.data));
       })
@@ -26,6 +27,7 @@ export const getBookById = (resource) => {
   return async (dispatch) => {
     dispatch(bookActions.setLoading(true));
     dispatch(bookActions.setBook(null));
+    dispatch(bookActions.setError(null));
     await request
       .get(resource)
       .then((res) => {
@@ -45,13 +47,15 @@ export const getBookById = (resource) => {
 
 export const createBook = (resource, data, cb) => {
   return async (dispatch) => {
-    dispatch(bookActions.setBooks([]));
+
+    dispatch(bookActions.setError(null));
     await request
       .post(resource, data)
       .then((res) => {
+        console.log(res.status)
         dispatch(bookActions.setError(null));
         dispatch(bookActions.addBook(res.data.book));
-        toast.success(res.data.message);
+       toast.success(res.data.message);
         cb && cb();
       })
       .catch((err) => {
@@ -66,6 +70,7 @@ export const createBook = (resource, data, cb) => {
 
 export const removeBook = (resource, id) => {
   return async (dispatch) => {
+    dispatch(bookActions.setError(null));
     await request
       .delete(resource + "/" + id)
       .then((res) => {
@@ -85,6 +90,7 @@ export const removeBook = (resource, id) => {
 
 export const updateBook = (resource, data, cb) => {
   return async (dispatch) => {
+    dispatch(bookActions.setError(null));
     await request
       .put(resource, data)
       .then((res) => {
@@ -103,6 +109,7 @@ export const updateBook = (resource, data, cb) => {
   };
 };
 export const updateMenyBook = (resource, data, cb) => {
+  dispatch(bookActions.setError(null));
   return async (dispatch) => {
     await request
       .put(resource, data)

@@ -10,7 +10,7 @@ import { get, update } from "../../redux/api/apiCalls";
 
 import NormalSelect from "../../components/share/NormalSelect";
 import { formatImageName } from "../../utils/functions";
-import { createBook } from "../../redux/api/bookApiCall";
+import { createBook, getBooks } from "../../redux/api/bookApiCall";
 import { upload } from "../../redux/api/upload/useUpload";
 const Create = () => {
   const dispatch = useDispatch();
@@ -69,10 +69,11 @@ const Create = () => {
     upload("/api/images",file)
     }
    
-    dispatch(createBook("/api/books",formData ,navigate(-1)))
+    dispatch(createBook("/api/books",formData ,()=>navigate(-1)))
   };
   const getCategoryOption = useCallback(() => {
     dispatch(get("/api/categorys"));
+    dispatch(getBooks('/api/books'))
   }, []);
   useEffect(() => {
     getCategoryOption();
@@ -159,7 +160,7 @@ const Create = () => {
                 field="category"
                 defaultValue={formData.category}
                 classParent="my-2"
-                titleOptions=" Category ?"
+                titleOptions="No category"
                 className="form-select"
                 classLabel="fw-semibold"
                 onchange={handelChange}

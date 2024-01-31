@@ -140,6 +140,10 @@ a.card:hover {
 .image-upload{
   width: 140px;
 }
+.image-details{
+  width: 180px;
+  height: 250px;
+}
 .card-image-container {
   width: 100%;
 }
@@ -152,4 +156,45 @@ a.card:hover {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.login{
+  min-width: 100vw;
+  min-height: 100dvh;
+
+}
+form.form-login{
+  margin-top: 10%;
+
+  width:360px ;
+}
+.input-login{
+  border: none;
+  background: none;
+  outline: none;
+}
+.input-login::placeholder {
+  color: #123;
+  font-weight: 700;
+}
+.btn-login{
+  background-color: #123;
+  border-radius: 7px;
+  color: wheat;
+  border: none;
+  padding: 5px 0px ;
+
+}
+.btn-login:hover{
+  background-color:#406a8d;
+  color: #123;
+}
+.btn-register{
+  text-decoration: none;
+  color: #123;
+  
+}
+.btn-register:hover{
+  text-decoration: underline;
+  font-weight: bolder;
+  transition: 0,9s;
 }

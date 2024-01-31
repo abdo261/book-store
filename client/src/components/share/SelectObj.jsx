@@ -18,6 +18,7 @@ const SelectObj = ({
   };
   useEffect(() => {
     setValue((prev) => defaultValue);
+    console.log(options)
   }, [defaultValue]);
   return (
     <div className={classParent}>

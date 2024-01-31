@@ -61,7 +61,7 @@ const Details = () => {
         {loading ? (
           <SpinerBs />
         ) : (
-          category && <TableBooks category={category} books={books} id={id} />
+          category && books && <TableBooks category={category} books={books} id={id} />
         )}
         {error && <ErrorAlert error={error} />}
       </div>

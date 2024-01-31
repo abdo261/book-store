@@ -6,7 +6,7 @@ const getAll = async (req, res) => {
     const books = await Book.find();
     res.status(200).json(books);
   } catch (err) {
-    console.log(err);
+    
     res.status(500).json({ message: err.message });
   }
 };
@@ -18,7 +18,7 @@ const getById = async (req, res) => {
     if (!book) return res.status(404).json({ message: "Book not found" });
     res.status(200).json(book);
   } catch (err) {
-    console.log(err);
+    
     res.status(500).json({ message: err.message });
   }
 };
@@ -28,7 +28,7 @@ const create = async (req, res) => {
     title: joi.string().required(),
     price: joi.number().required(),
     author: joi.string().required(),
-    category: joi.string().allow(null),
+    category: joi.alternatives().try(joi.string(), joi.allow(null)),
     dateReleased: joi.date().required(),
     sizeInMB: joi.number().required(),
     numberOfPages: joi.number().required(),
@@ -43,7 +43,9 @@ const create = async (req, res) => {
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     }
-
+    if (value.category === '') {
+      value.category = null;
+    }
     const newBook = new Book(value);
     await newBook.save();
 
@@ -52,7 +54,7 @@ const create = async (req, res) => {
       message: `${newBook.title} created successfully`,
     });
   } catch (err) {
-    console.log(err);
+    
     res.status(500).json({ message: err.message });
   }
 };
@@ -63,7 +65,7 @@ const update = async (req, res) => {
       title: joi.string(),
       price: joi.number(),
       author: joi.string(),
-      category: joi.string().allow(null),
+      category: joi.alternatives().try(joi.string(), joi.allow(null)),
       dateReleased: joi.date(),
       sizeInMB: joi.number(),
       numberOfPages: joi.number(),
@@ -80,7 +82,9 @@ const update = async (req, res) => {
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     }
-
+    if (value.category === '') {
+      value.category = null;
+    }
     const updatedBook = await Book.findByIdAndUpdate(id, value, {
       new: true,
     });
@@ -93,7 +97,7 @@ const update = async (req, res) => {
       message: `${updatedBook.title} updated successfully`,
     });
   } catch (err) {
-    console.log(err);
+    
     res.status(500).json({ message: err.message });
   }
 };
@@ -107,7 +111,7 @@ const remove = async (req, res) => {
       message: `Book '${book.title}' removed successfully`,
     });
   } catch (err) {
-    console.log(err);
+    
     res.status(500).json({ message: err.message });
   }
 };
@@ -153,7 +157,7 @@ const updateManyByCategory = async (req, res) => {
       message: `${updatedBooks.n} books updated successfully`,
     });
   } catch (err) {
-    console.log(err);
+    
     res.status(500).json({ message: err.message });
   }
 };
