@@ -4,7 +4,7 @@ const categorySlice = createSlice({
   name: "category",
   initialState: {
     categorys: null,
-    category:null,
+    category: null,
     loading: false,
     error: null,
     deleteMessage: null,
@@ -12,7 +12,7 @@ const categorySlice = createSlice({
   },
   reducers: {
     setCategorys(state, action) {
-      state.categorys = action.payload
+      state.categorys = action.payload;
     },
     setCategory(state, action) {
       state.category = action.payload;
@@ -32,20 +32,18 @@ const categorySlice = createSlice({
       });
     },
     removeCategory(state, action) {
-      
       state.categorys = state.categorys
         .filter((c) => c._id !== action.payload)
         .sort((a, b) => {
           return new Date(b.updatedAt) - new Date(a.updatedAt);
         });
     },
-
     updateCategory(state, action) {
-      state.categorys = state.categorys?.map((c) =>
-        c._id === action.payload._id ? action.payload : c
-      ).sort((a, b) => {
-        return new Date(b.updatedAt) - new Date(a.updatedAt);
-      });
+      state.categorys = state.categorys
+        ?.map((c) => (c._id === action.payload._id ? action.payload : c))
+        .sort((a, b) => {
+          return new Date(b.updatedAt) - new Date(a.updatedAt);
+        });
     },
     setShowTable(state, action) {
       state.showTable = action.payload;

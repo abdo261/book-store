@@ -7,7 +7,7 @@ export const loginUser = (user, cb) => {
     request
       .post("/api/user/login",user)
       .then((res) => {
-        console.log(res.data.message)
+        
         dispatch(authActions.setError(null));
         dispatch(authActions.login(res.data));
         localStorage.setItem("userInfo", JSON.stringify(res.data));

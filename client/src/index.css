@@ -105,6 +105,16 @@ a.card:hover {
 .input-filter {
   width: 150px;
 }
+.input-w {
+  width: 240px;
+}
+.books-Selected {
+  height: 400px;
+  width: 100%;
+  overflow-y: scroll;
+  background-color: #c8cbcd;
+}
+
 .card:hover .main-text h2 {
   background: url(../public/a-book-vector-20321004.jpg); /* Change this to the color you want for the hover effect */
   color: rgb(
@@ -129,18 +139,20 @@ a.card:hover {
   position: relative;
   cursor: pointer;
 }
-.pointer{cursor: pointer;}
-.badge{
+.pointer {
+  cursor: pointer;
+}
+.badge {
   width: 100px;
   position: absolute;
   top: 10px;
   right: -30px;
   transform: rotate(45deg);
 }
-.image-upload{
+.image-upload {
   width: 140px;
 }
-.image-details{
+.image-details {
   width: 180px;
   height: 250px;
 }
@@ -150,24 +162,22 @@ a.card:hover {
 .card-image-container img {
   width: 120px;
   height: 180px;
-  
 }
 .card-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.login{
+.login {
   min-width: 100vw;
   min-height: 100dvh;
-
 }
-form.form-login{
+form.form-login {
   margin-top: 10%;
 
-  width:360px ;
+  width: 360px;
 }
-.input-login{
+.input-login {
   border: none;
   background: none;
   outline: none;
@@ -176,25 +186,23 @@ form.form-login{
   color: #123;
   font-weight: 700;
 }
-.btn-login{
+.btn-login {
   background-color: #123;
   border-radius: 7px;
   color: wheat;
   border: none;
-  padding: 5px 0px ;
-
+  padding: 5px 0px;
 }
-.btn-login:hover{
-  background-color:#406a8d;
+.btn-login:hover {
+  background-color: #406a8d;
   color: #123;
 }
-.btn-register{
+.btn-register {
   text-decoration: none;
   color: #123;
-  
 }
-.btn-register:hover{
+.btn-register:hover {
   text-decoration: underline;
   font-weight: bolder;
-  transition: 0,9s;
+  transition: 0, 9s;
 }

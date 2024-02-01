@@ -4,6 +4,7 @@ import { BsAward, BsList, BsX, BsBoxArrowInLeft } from "react-icons/bs"; // Impo
 import { FiBookOpen } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { LogoutUser } from "../../../redux/api/authApiCalls";
+import { HiMiniClipboardDocumentCheck } from "react-icons/hi2";
 
 const Sidebar = ({ show, toggleShow }) => {
   // const { user } = useSelector((state) => state.auth);
@@ -26,6 +27,12 @@ const Sidebar = ({ show, toggleShow }) => {
       name: "Book",
       link: "/book",
       icon: FiBookOpen,
+      show: true,
+    },
+    {
+      name: "Commande",
+      link: "/commande",
+      icon: HiMiniClipboardDocumentCheck,
       show: true,
     },
   ];

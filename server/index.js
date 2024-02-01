@@ -14,9 +14,11 @@ const categoryRouter = require("./routers/categoryRouter");
 const bookRouter = require("./routers/bookRouter");
 const imageRouter= require("./routers/imageRouter");
 const userRouter= require("./routers/authRouter");
+const commandeRouter= require("./routers/commandeRouter");
 
 app.use("/api/categorys", categoryRouter);
 app.use("/api/books", bookRouter);
+app.use("/api/commandes", commandeRouter);
 app.use("/api/images", imageRouter);
 app.use("/api/user", userRouter);
 

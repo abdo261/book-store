@@ -12,7 +12,9 @@ import ListCardsCategory from "./shildren/ListCardsCategory";
 import { categoryActions } from "../../redux/slices/categorySlice";
 const Show = () => {
   // const [showTable, setShowTable] = useState(true);
-  const { categorys, loading, error, showTable} = useSelector((state) => state.category);
+  const { categorys, loading, error, showTable } = useSelector(
+    (state) => state.category
+  );
   const dispatch = useDispatch();
   const getAll = useCallback(() => {
     dispatch(get("/api/categorys"));
@@ -33,14 +35,14 @@ const Show = () => {
             className={
               showTable ? "btn btn-dark btn-sm" : "btn btn-light btn-sm"
             }
-            oncklick={e=>dispatch(categoryActions.setShowTable(true))}
+            oncklick={(e) => dispatch(categoryActions.setShowTable(true))}
           />
           <Btn
             text={<GrApps size={20} />}
             className={
-              showTable ? "btn btn-light btn-sm " : "btn btn-dark btn-sm " 
+              showTable ? "btn btn-light btn-sm " : "btn btn-dark btn-sm "
             }
-            oncklick={e=>dispatch(categoryActions.setShowTable(false))}
+            oncklick={(e) => dispatch(categoryActions.setShowTable(false))}
           />
         </div>
         <div>
@@ -53,7 +55,12 @@ const Show = () => {
         {loading ? (
           <SpinerBs />
         ) : (
-          categorys && (showTable ?<TableCategory categorys={categorys} /> : <ListCardsCategory categorys={categorys} />)
+          categorys &&
+          (showTable ? (
+            <TableCategory categorys={categorys} />
+          ) : (
+            <ListCardsCategory categorys={categorys} />
+          ))
         )}
         {error && <ErrorAlert error={error} />}
       </div>

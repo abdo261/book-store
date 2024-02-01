@@ -25,7 +25,7 @@ const Layout = () => {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="light"
+          theme="colored"
           draggablePercent={60}
         />
       </main>
