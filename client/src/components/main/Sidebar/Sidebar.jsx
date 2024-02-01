@@ -5,9 +5,10 @@ import { FiBookOpen } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { LogoutUser } from "../../../redux/api/authApiCalls";
 import { HiMiniClipboardDocumentCheck } from "react-icons/hi2";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 const Sidebar = ({ show, toggleShow }) => {
-  // const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handelLogout = () => {
@@ -43,7 +44,7 @@ const Sidebar = ({ show, toggleShow }) => {
         <div className="header-toggle" onClick={toggleShow}>
           {closeIcon}
         </div>
-        <div> </div>
+        <div className="text-dark fw-bold"> {user &&<span className="d-flex align-items-end gap-2 fs-5"> {user.user.user_name}<FaRegCircleUser size={30}/> </span> } </div>
       </header>
 
       <aside className={show ? "sidebar show " : "sidebar"}>

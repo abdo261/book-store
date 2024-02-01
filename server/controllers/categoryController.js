@@ -59,6 +59,7 @@ const create = async (req, res) => {
   }
 };
 const remove = async (req, res) => {
+   if(!req.is_admin) return res.status(400).json({message:"Vous n'avez pas le droit de supprimer la categorie."})
   try {
     const { id } = req.params;
     const category = await Category.findByIdAndDelete(id);
@@ -74,6 +75,7 @@ const remove = async (req, res) => {
 };
 
 const update = async (req, res) => {
+   if(!req.is_admin) return res.status(400).json({message:"Vous n'avez pas le droit de  modifier la categorie."})
   const schema = joi.object({
     name: joi.string().pattern(/^[a-zA-Z _-]+$/),
     color: joi

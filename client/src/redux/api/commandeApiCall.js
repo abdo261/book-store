@@ -60,7 +60,7 @@ export const createCommande = (resource, data, cb) => {
       .catch((err) => {
         console.log(err)
         dispatch(commandeActions.setLoading(false));
-        dispatch(commandeActions.setError(err.response.data.message));
+       
         toast.error(err.response.data.message);
       })
       .finally(() => dispatch(commandeActions.setLoading(null)));
@@ -71,7 +71,9 @@ export const removeCommande = (resource, id) => {
   return async (dispatch) => {
     dispatch(commandeActions.setError(null));
     await request
-      .delete(resource + "/" + id)
+      .delete(resource + "/" + id, { headers: {
+        token: `${JSON.parse(localStorage.getItem("userInfo")).token}`,
+      }},)
       .then((res) => {
         console.log(res.data)
         dispatch(commandeActions.setError(null));
@@ -80,7 +82,7 @@ export const removeCommande = (resource, id) => {
       })
       .catch((err) => {
         dispatch(commandeActions.setLoading(false));
-        dispatch(commandeActions.setError(err.response.data.message));
+     
         toast.error(err.response.data.message);
       })
       .finally(() => dispatch(commandeActions.setLoading(null)));
@@ -91,7 +93,9 @@ export const updateCommande = (resource, data, cb) => {
   return async (dispatch) => {
     dispatch(commandeActions.setError(null));
     await request
-      .put(resource, data)
+      .put(resource, data,{ headers: {
+        token: `${JSON.parse(localStorage.getItem("userInfo")).token}`,
+      }})
       .then((res) => {
         console.log(res.data)
         dispatch(commandeActions.setError(null));
@@ -102,7 +106,7 @@ export const updateCommande = (resource, data, cb) => {
       .catch((err) => {
         console.log(err)
         dispatch(commandeActions.setLoading(false));
-        dispatch(commandeActions.setError(err.response.data.message));
+ 
         toast.error(err.response.data.message);
       })
       .finally(() => dispatch(commandeActions.setLoading(null)));

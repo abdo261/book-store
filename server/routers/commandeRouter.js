@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const isAuth = require('../middlewares/isAuthenticated')
 const {
   getAll,
   getById,
@@ -10,7 +11,7 @@ const {
 router.get("/", getAll);
 router.get("/:id", getById);
 router.post("/", create);
-router.delete("/:id", remove);
-router.put("/:id", update);
+router.delete("/:id",isAuth, remove);
+router.put("/:id",isAuth, update);
 
 module.exports = router;

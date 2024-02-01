@@ -28,6 +28,7 @@ const uploadImage = (req, res) => {
   });
 };
 const removeByName = async (req, res) => {
+  if(!req.is_admin) return res.status(400).json({mesage:"non"})
   try {
     const filename = req.params.filename;
 
@@ -121,6 +122,7 @@ const get = async (req, res) => {
 };
 
 const remove = async (req, res) => {
+  if(!req.is_admin) return res.status(400).json({mesage:"non"})
   try {
     // Extract the objectID from params and convert it to a string
     const objectID = req.params.objectID.toString();

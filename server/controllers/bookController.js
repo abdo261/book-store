@@ -60,6 +60,7 @@ const create = async (req, res) => {
 };
 
 const update = async (req, res) => {
+   if(!req.is_admin) return res.status(400).json({message:"Vous n'avez pas le droit de modifier book."})
   const schema = joi
     .object({
       title: joi.string(),
@@ -103,6 +104,7 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
+   if(!req.is_admin) return res.status(400).json({message:"Vous n'avez pas le droit de supprimer book."})
   try {
     const { id } = req.params;
     const book = await Book.findByIdAndDelete(id);

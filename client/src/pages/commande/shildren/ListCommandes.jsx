@@ -94,7 +94,7 @@ const ListCommandes = ({ commandes }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={4}>
+              <td colSpan={5}>
                 {" "}
                 <div className="w-100 text-center ">
                   <div className="fw-bolder">There are no commandes !</div>

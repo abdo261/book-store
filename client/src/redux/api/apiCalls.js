@@ -61,7 +61,7 @@ export const create = (resource, data, cb) => {
       .catch((err) => {
         console.log(err);
         dispatch(categoryActions.setLoading(false));
-        dispatch(categoryActions.setError(err.response.data.message));
+       
         toast.error(err.response.data.message);
       })
       .finally(() => dispatch(categoryActions.setLoading(null)));
@@ -72,7 +72,9 @@ export const remove = (resource, id) => {
   return async (dispatch) => {
     dispatch(categoryActions.setError(null));
     await request
-      .delete(resource + "/" + id)
+      .delete(resource + "/" + id,{ headers: {
+        token: `${JSON.parse(localStorage.getItem("userInfo")).token}`,
+      }})
       .then((res) => {
         dispatch(categoryActions.setError(null));
         dispatch(categoryActions.removeCategory(id));
@@ -81,7 +83,7 @@ export const remove = (resource, id) => {
       .catch((err) => {
         console.log(err);
         dispatch(categoryActions.setLoading(false));
-        dispatch(categoryActions.setError(err.response.data.message));
+       
         toast.error(err.response.data.message);
       })
       .finally(() => dispatch(categoryActions.setLoading(null)));
@@ -91,7 +93,9 @@ export const update = (resource, data, cb, message = false) => {
   return async (dispatch) => {
     dispatch(categoryActions.setError(null));
     await request
-      .put(resource, data)
+      .put(resource, data,{ headers: {
+        token: `${JSON.parse(localStorage.getItem("userInfo")).token}`,
+      }})
       .then((res) => {
         dispatch(categoryActions.setError(null));
         if (message) {
@@ -103,7 +107,7 @@ export const update = (resource, data, cb, message = false) => {
       .catch((err) => {
         console.log(err);
         dispatch(categoryActions.setLoading(false));
-        // dispatch(categoryActions.setError(err.response.data.message));
+       
         if (message) {
           toast.error(err.response.data.message);
         }

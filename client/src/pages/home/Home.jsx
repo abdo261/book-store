@@ -1,9 +1,34 @@
-import React from 'react'
+import React, { useCallback, useEffect } from "react";
+import SwipperContainer from "./shildren/SwiperContainer";
+import { useDispatch, useSelector } from "react-redux";
+import { get } from "../../redux/api/apiCalls";
+import { getBooks } from "../../redux/api/bookApiCall";
 
 const Home = () => {
+  const { categorys, loading, error, showTable } = useSelector(
+    (state) => state.category
+  );
+  const { books } = useSelector(
+    (state) => state.book
+  );
+  const dispatch = useDispatch();
+  const getAll = useCallback(() => {
+    dispatch(get("/api/categorys"));
+   
+  }, []);
+  useEffect(() => {
+    getAll(); 
+    dispatch(getBooks('/api/books'))
+  }, [getAll]);
   return (
-    <div>Home</div>
-  )
-}
+    <div className="w-100 h-100 d-flex justify-content-start py-3 flex-column align-items-center">
+  <h1>Welcom To Books Labrery</h1>
+  <div className="w-100 p-5 bg-light rounded-4">
+ {books && categorys && <SwipperContainer categorys={categorys} books={books}/>}
+  </div>
 
-export default Home
+    </div>
+  );
+};
+
+export default Home;

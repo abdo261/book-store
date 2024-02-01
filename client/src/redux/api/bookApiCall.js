@@ -61,7 +61,7 @@ export const createBook = (resource, data, cb) => {
       .catch((err) => {
         console.log(err);
         dispatch(bookActions.setLoading(false));
-        dispatch(bookActions.setError(err.response.data.message));
+      
         toast.error(err.response.data.message);
       })
       .finally(() => dispatch(bookActions.setLoading(null)));
@@ -70,9 +70,11 @@ export const createBook = (resource, data, cb) => {
 
 export const removeBook = (resource, id) => {
   return async (dispatch) => {
-    dispatch(bookActions.setError(null));
+    dispatch(bookActions.setError(null),);
     await request
-      .delete(resource + "/" + id)
+      .delete(resource + "/" + id,{ headers: {
+        token: `${JSON.parse(localStorage.getItem("userInfo")).token}`,
+      }})
       .then((res) => {
         dispatch(bookActions.setError(null));
         dispatch(bookActions.removeBook(id));
@@ -81,7 +83,7 @@ export const removeBook = (resource, id) => {
       .catch((err) => {
         console.log(err);
         dispatch(bookActions.setLoading(false));
-        dispatch(bookActions.setError(err.response.data.message));
+      
         toast.error(err.response.data.message);
       })
       .finally(() => dispatch(bookActions.setLoading(null)));
@@ -92,7 +94,9 @@ export const updateBook = (resource, data, cb) => {
   return async (dispatch) => {
     dispatch(bookActions.setError(null));
     await request
-      .put(resource, data)
+      .put(resource, data,{ headers: {
+        token: `${JSON.parse(localStorage.getItem("userInfo")).token}`,
+      }})
       .then((res) => {
         dispatch(bookActions.setError(null));
         toast.success(res.data.message);
@@ -102,7 +106,7 @@ export const updateBook = (resource, data, cb) => {
       .catch((err) => {
         console.log(err);
         dispatch(bookActions.setLoading(false));
-        dispatch(bookActions.setError(err.response.data.message));
+       
         toast.error(err.response.data.message);
       })
       .finally(() => dispatch(bookActions.setLoading(null)));
@@ -112,7 +116,9 @@ export const updateMenyBook = (resource, data, cb) => {
   dispatch(bookActions.setError(null));
   return async (dispatch) => {
     await request
-      .put(resource, data)
+      .put(resource, data,{ headers: {
+        token: `${JSON.parse(localStorage.getItem("userInfo")).token}`,
+      }})
       .then((res) => {
         dispatch(bookActions.setError(null));
         cb && cb();
@@ -120,7 +126,7 @@ export const updateMenyBook = (resource, data, cb) => {
       .catch((err) => {
         console.log(err);
         dispatch(bookActions.setLoading(false));
-        dispatch(bookActions.setError(err.response.data.message));
+        
         toast.error(err.response.data.message);
       })
       .finally(() => dispatch(bookActions.setLoading(null)));

@@ -48,3 +48,25 @@ export const registerUser =(user,cb)=>{
     .finally(() => dispatch(authActions.setLoading(false)));
 };
   }
+
+
+  export const getusers = (resource="/api/user/all") => {
+    return async (dispatch) => {
+      dispatch(authActions.setLoading(true));
+      dispatch(authActions.setError(null));
+      dispatch(authActions.setUsers(null));
+      await request
+        .get(resource)
+        .then((res) => {
+          
+          dispatch(authActions.setError(null));
+          dispatch(authActions.setUsers(res.data));
+        })
+        .catch((err) => {
+          console.log(err);
+          dispatch(authActions.setLoading(false));
+          dispatch(authActions.setError(err.message));
+        })
+        .finally(() => dispatch(authActions.setLoading(null)));
+    };
+  };

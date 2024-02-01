@@ -1,6 +1,6 @@
 import React from "react";
 import { FaPenFancy } from "react-icons/fa";
-const ContainerDetails = ({ book }) => {
+const ContainerDetails = ({ book,categorys }) => {
   return (
     <div className="row bg-light p-4 text-dark ">
       <div className="col-md-2">
@@ -23,6 +23,19 @@ const ContainerDetails = ({ book }) => {
             <strong>Summary : </strong>
             <p> { book.summary } </p>
           </div>
+          <div className="d-flex">
+            
+            <strong>Price : </strong>
+            <p> { book.price } $</p>
+          </div>
+          <div className="d-flex">
+            
+            <strong>Category : </strong>
+            <p className="d-flex align-items-center ps-2 gap-2">  <div
+                style={{ backgroundColor: getCategory(categorys,book.category)?.color }}
+                className="square-color "
+              ></div> { getCategory(categorys,book.category)?.name } $</p>
+          </div>
           <div className="d-flex justify-content-between align-items-center"></div>
         </div>
       </div>
@@ -31,3 +44,7 @@ const ContainerDetails = ({ book }) => {
 };
 
 export default ContainerDetails;
+
+const getCategory =(categorys,id)=>{
+return categorys.find(c=>c._id===id)
+}
